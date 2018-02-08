@@ -1,5 +1,7 @@
 /** Replace with your own file block comment.
  */
+#include <stdlib.h>
+#include <stdio.h>
 
 /** Maximum color component value. */
 #define CMAX 255
