@@ -1,8 +1,21 @@
+/** A program that draws a triangle given a width and height value
+  * for the image, 3 (x, y) coordinate pairs for the vertices,
+  * and 3 integers for the RGB values corresponding to the desired
+  * color of the triangle. The program outputs a ppm file that is
+  * either encoded using 8 bit ints or binary representation.
+  * @file triangle.c
+  * @author Noah Benveniste nnbenven
+  */
 #include <stdlib.h>
 #include <stdio.h>
 #include "geometry.h"
 #include "encoding.h"
 
+/** Main function; starting point for the program. Validates
+  * user input, passes it to functions that handle drawing.
+  * @param NONE
+  * @return int 0 for successful run, anything else for failure
+  */
 int main()
 {
     

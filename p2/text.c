@@ -1,5 +1,11 @@
+/** Encodes ppm file that produces triangle image using
+  * 8 bit integers.
+  * @file text.c
+  * @author Noah Benveniste
+  */
 #include "encoding.h"
 
+/** Max number of characters to print on a line */
 #define MAX_LINE_LENGTH 70
 
 void printHeader( int width, int height )
@@ -9,6 +15,7 @@ void printHeader( int width, int height )
 
 void printValue( unsigned char c )
 {
+    
     // Keep track of the number of characters on the current line
     static int charCount = 0;
     /* 
