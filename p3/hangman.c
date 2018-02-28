@@ -92,12 +92,16 @@ int main( int argc, char *argv[] )
 			// Initialize for fencepost
 			bool validIn = true;
 			char in[20];
+			int matches;
 			
 			// Prompt for input
 			printf( "\nletter> " );
 		
 			// Check for garbage input. User must enter a single lowercase letter.
-			scanf( "%s", in );
+			matches = scanf( "%s", in );
+			if ( matches == EOF ) {
+				return EXIT_SUCCESS;
+			}
 			if ( strlen( in ) != 1 ) {
 				validIn = false;
 			} else if ( in[0] < 'a' || in[0] > 'z' ) {
@@ -120,7 +124,10 @@ int main( int argc, char *argv[] )
 				printf( "\nletter> " );
 			
 				// Check for garbage input. User must enter a single lowercase letter.
-				scanf( "%s", in );
+				matches = scanf( "%s", in );
+				if ( matches == EOF ) {
+					return EXIT_SUCCESS;
+				}
 			
 				if ( strlen( in ) != 1 ) {
 					validIn = false;
@@ -188,6 +195,7 @@ int main( int argc, char *argv[] )
 		int matches = scanf( "%s" , playerResponse );
 		if ( matches == EOF ) {
 			playAgain = false;
+			return EXIT_SUCCESS;
 		} else if ( playerResponse[0] == 'y' || playerResponse[0] == 'Y' ) {
 			playAgain = true;
 		} else {
