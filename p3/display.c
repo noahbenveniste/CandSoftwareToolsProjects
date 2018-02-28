@@ -21,7 +21,7 @@ void displayFigure(int numberOfParts)
 				"\n O \n | \n | \n",
 				"\n O \n/| \n | \n",
 				"\n O \n/|\\\n | \n",
-				"\n O \n/|\\\n | \n/  \n",
+				"\n O \n/|\\\n | \n/\n",
 				"\n O \n/|\\\n | \n/ \\\n",
 				};
 	if ( numberOfParts > 0 ) {

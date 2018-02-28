@@ -186,7 +186,7 @@ int main( int argc, char *argv[] )
 			displayWord( wordToDisplay );
 			printf( "\nYou win!\n" );
 		} else {
-			printf( "\nYou lose!\nWord was %s\n", actualWord );
+			printf( "You lose!\nWord was %s\n", actualWord );
 		}
 		
 		// Ask the user if they want to play again. y or Y indicates yes, anything else or EOF means no
