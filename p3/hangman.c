@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include "wordlist.h"
+#include "display.h"
 
 int main( int argc, char *argv[] )
 {
@@ -32,12 +33,6 @@ int main( int argc, char *argv[] )
 	// Load the list of words
 	readWords( argv[1] );
 	
-	// Loop for file i/o debugging
-	for ( int i = 0; i < wordCount; i++ ) {
-		printf( "%s\n", words[ i ] );
-	}
-	printf( "%d\n", wordCount );
-	
 	// Repeat game loop
 	bool playAgain = true;
 	while ( playAgain ) {
@@ -60,6 +55,9 @@ int main( int argc, char *argv[] )
 		// Initialize wrong guesses counter
 		int numWrongGuesses = 0;
 		
+		// Initialize correct guesses counter
+		int numLettersGuessed = 0;
+		
 		// The number of letters the player must guess to win
 		int numLettersToGuess = strlen( actualWord );
 		
@@ -67,16 +65,78 @@ int main( int argc, char *argv[] )
 		bool playerHasWon = false;
 		
 		// Keep prompting user for guesses
-		while ( numWrongGuesses < 7 ) {
+		do {
+			// Flag for correct letter guess
+			bool correctGuess = false;
+			
 			// Print the figure based on the number of wrong guesses
+			displayFigure( numWrongGuesses );
+			printf( "\n" );
+			if ( numWrongGuesses == 7 ) {
+				break;
+			}
 			
 			// Print the display word
+			displayWord( wordToDisplay );
+			printf( "\n");
 			
 			// Print the remaining letters to guess
+			printf( "Remaining letters:" );
+			for ( int i = 0; i < strlen( letters ); i++ ) {
+				if ( letters[i] != ' ' ) {
+					printf( " %c", letters[ i ] );
+				}
+			}
+			printf( "\n" );
 			
-			// Check for garbage input. User must enter a lowercase letter.
+			// Initialize for fencepost
+			bool validIn = true;
+			char in[20];
 			
-			// Reprompt if user inputs garbage
+			// Prompt for input
+			printf( "\nletter> " );
+		
+			// Check for garbage input. User must enter a single lowercase letter.
+			scanf( "%s", in );
+			if ( strlen( in ) != 1 ) {
+				validIn = false;
+			} else if ( in[0] < 'a' || in[0] > 'z' ) {
+				validIn = false;
+			} else {
+				// Check if the letter has already been guessed
+				bool notGuessed = false;
+				for ( int i = 0; i < strlen( letters ); i++ ) {
+					if ( letters[i] == in[0] ) {
+						notGuessed = true;
+					}
+				}
+				validIn = notGuessed;
+			}
+			
+			// Reprompt for input until user enters something valid
+			while ( !validIn ) {
+				printf( "\nInvalid letter\n" );
+				// Prompt for input
+				printf( "\nletter> " );
+			
+				// Check for garbage input. User must enter a single lowercase letter.
+				scanf( "%s", in );
+			
+				if ( strlen( in ) != 1 ) {
+					validIn = false;
+				} else if ( in[0] < 'a' || in[0] > 'z' ) {
+					validIn = false;
+				} else {
+					// Check if the letter has already been guessed
+					bool notGuessed = false;
+					for ( int i = 0; i < strlen( letters ); i++ ) {
+						if ( letters[i] == in[0] ) {
+							notGuessed = true;
+						}
+					}
+					validIn = notGuessed;
+				}
+			}
 			
 			// For a valid input, check the actual word array. Loop through each
 			// element in the array. If a given index contains the guessed letter,
@@ -86,14 +146,54 @@ int main( int argc, char *argv[] )
 			// Remove the guessed letter from the letters array. Increment the 
 			// guessed letter counter. If the player has guessed all the letters, set
 			// win flag and break
+			for ( int i = 0; i < strlen( actualWord ); i++ ) {
+				if ( in[0] == actualWord[i] ) {
+					numLettersGuessed++;
+					correctGuess = true;
+					wordToDisplay[i] = in[0];
+				}
+			}
 			
-			// If the guessed letter was not found in the word, the boolean flag won't be
-			// set so increment the wrong guesses counter.
-		}
+			// Remove the letter from the list of letters left to guess
+			for ( int i = 0; i < strlen( letters ); i++ ) {
+				if ( letters[i] == in[0] ) {
+					letters[i] = ' ';
+					break;
+				}
+			}
+			
+			if ( numLettersGuessed == numLettersToGuess ) {
+				playerHasWon = true;
+				break;
+			}
+			
+			if ( !correctGuess ) {
+				numWrongGuesses++;
+			}
+			
+		} while (true);
+		
 		// Check if the player has won or lost and output proper message
+		if ( playerHasWon ) {
+			printf( "\n" );
+			displayWord( wordToDisplay );
+			printf( "\nYou win!\n" );
+		} else {
+			printf( "\nYou lose!\nWord was %s\n", actualWord );
+		}
 		
 		// Ask the user if they want to play again. y or Y indicates yes, anything else or EOF means no
-		playAgain = false;
+		printf( "\nPlay again(y,n)> " );
+		char playerResponse[100];
+		int matches = scanf( "%s" , playerResponse );
+		if ( matches == EOF ) {
+			playAgain = false;
+		} else if ( playerResponse[0] == 'y' || playerResponse[0] == 'Y' ) {
+			playAgain = true;
+		} else {
+			playAgain = false;
+		}
+		
 	}
 	
 	return EXIT_SUCCESS;

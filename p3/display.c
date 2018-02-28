@@ -9,19 +9,20 @@ void displayWord(char word[])
 	for ( int i = 1; i < strlen( word ); i++ ) {
 		printf( " %c", word[ i ] );
 	}
+	printf( "\n" );
 	return;
 }
 
 void displayFigure(int numberOfParts)
 {	
 	char *bodyParts[] = { 
-				" O ",
-				" O \n | ",
-				" O \n | \n | ",
-				" O \n/| \n | ",
-				" O \n/|\'\n | ",
-				" O \n/|\'\n/| ",
-				" O \n/|\'\n/|\'",
+				"\n O \n",
+				"\n O \n | \n",
+				"\n O \n | \n | \n",
+				"\n O \n/| \n | \n",
+				"\n O \n/|\\\n | \n",
+				"\n O \n/|\\\n | \n/  \n",
+				"\n O \n/|\\\n | \n/ \\\n",
 				};
 	if ( numberOfParts > 0 ) {
 		printf( "%s", bodyParts[ numberOfParts - 1] );
