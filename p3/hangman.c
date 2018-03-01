@@ -197,10 +197,11 @@ int main( int argc, char *argv[] )
             printf( "You lose!\nWord was %s\n", actualWord );
         }
 
-        // Ask the user if they want to play again. y or Y indicates yes, anything else or EOF means no
+        // Ask the user if they want to play again. y or Y indicates yes,
+        // anything else or EOF means no
         printf( "\nPlay again(y,n)> " );
         char playerResponse[NUM_WORDS * 2];
-        int matches = scanf( "%s" , playerResponse );
+        int matches = scanf( "%s", playerResponse );
         if ( matches == EOF ) {
             playAgain = false;
             return EXIT_SUCCESS;

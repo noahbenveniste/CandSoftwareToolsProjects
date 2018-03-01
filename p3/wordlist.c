@@ -1,13 +1,17 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 /**
   * @file
   * @author
   */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #include "wordlist.h"
 
-/** Statically allocated words array. Can store 50 words with 20 characters each (plus null terminator) */
+/*
+Statically allocated words array. Can store 50 words with 20 characters each 
+(plus null terminator)
+*/
 char words[NUM_WORDS][WORD_LENGTH + 1];
 int wordCount;
 
@@ -31,7 +35,8 @@ void readWords( char const *filename )
     while ( curr != EOF ) {
         // Put the character back
         ungetc( curr, f );
-        // If another loop iteration is reached with 50 words in the array, the file has too many words.
+        // If another loop iteration is reached with 50 words in the array, the file has 
+        // too many words.
         if ( wordCount == NUM_WORDS ) {
             goto invalidWordFile;
         }
