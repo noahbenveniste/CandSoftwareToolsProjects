@@ -1,6 +1,8 @@
-/**
-  * @file
-  * @author
+/** Handles reading in words from an input file into the word list
+  * array as well as handling bad input files.
+  *
+  * @file wordlist.c
+  * @author Noah Benveniste
   */
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,6 +15,7 @@ Statically allocated words array. Can store 50 words with 20 characters each
 (plus null terminator)
 */
 char words[NUM_WORDS][WORD_LENGTH + 1];
+// Initialize word counter
 int wordCount;
 
 void readWords( char const *filename )

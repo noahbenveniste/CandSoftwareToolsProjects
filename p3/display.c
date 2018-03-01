@@ -1,6 +1,8 @@
-/**
-  * @file
-  * @author
+/** Functions used to display game state information between
+  * turns of the game.
+  *
+  * @file display.c
+  * @author Noah Benveniste
   */
 #include <stdlib.h>
 #include <stdio.h>

@@ -1,6 +1,9 @@
-/**
-  * @file
-  * @author
+/** Front end of the program. Processes command line arguments,
+  * calls all file i/o functions and handles main flow for the
+  * game.
+  *
+  * @file hangman.c
+  * @author Noah Benveniste
   */
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,6 +17,19 @@
 #define MAX_ARGS 3
 #define NUM_GUESSES 7
 
+/** Main function. Accepts word list file name and an optional RNG
+  * seed from the command line and calls all file i/o functions.
+  * If the command line args are valid and the file is valid, the
+  * game starts. The game loops continuously, prompting the player
+  * to input guessed letters. This continues until the user guesses
+  * the word or uses up all of their guesses. The user is then asked
+  * if they want to play again.
+  *
+  * @param argc the number of command line arguments passed
+  * @param argv an array of command line arguments. For this
+  * program, contains the name of the word list file and an
+  * option integer seed for the RNG functions to use when testing.
+  */
 int main( int argc, char *argv[] )
 {
     // Store the RNG seed if one is provided
