@@ -19,14 +19,14 @@ void readWords( char const *filename )
         fprintf( stderr, "Can't open word file\n");
         exit( EXIT_FAILURE );
     }
-    
+
     // Stores each word in the file. Used to check if the word is over 20 characters.
     char buffer[NUM_WORDS * 2];
     // Initialize the word counter
     wordCount = 0;
     // Fencepost for loop control
     char curr = fgetc( f );
-    
+
     // Loop until EOF is reached
     while ( curr != EOF ) {
         // Put the character back
@@ -61,10 +61,10 @@ void readWords( char const *filename )
     }
     fclose( f );
     return;
-    
+
     invalidWordFile:
         fprintf( stderr, "Invalid word file\n" );
         fclose( f );
         exit( EXIT_FAILURE );
-        
+
 }

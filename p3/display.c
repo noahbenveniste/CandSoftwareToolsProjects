@@ -18,8 +18,8 @@ void displayWord(char word[])
 }
 
 void displayFigure(int numberOfParts)
-{    
-    char *bodyParts[] = { 
+{
+    char *bodyParts[] = {
                 "\n O \n",
                 "\n O \n | \n",
                 "\n O \n | \n | \n",
