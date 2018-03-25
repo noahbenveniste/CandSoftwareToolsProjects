@@ -1,3 +1,6 @@
+#include <stdlib.h>
+#include <stdio.h>
+
 #ifndef POINT_H
 #define POINT_H
 
@@ -10,6 +13,37 @@ typedef struct {
   double lon;
 } Coords;
 
-// ... more code written by you ...
+/** */
+typedef struct {
+    
+    /** Store the name directly in the struct; up to 20 characters */
+    char name[21];
+    
+    /** Latitude and longitude of the Point */
+    Coords location;
+    
+    /** Pointer to the description string; not storing it here allows its length to vary */
+    char *desc;
+} Point;
+
+/*
+ *
+ */
+Point *parsePoint();
+
+/*
+ *
+ */
+void freePoint( Point *pt );
+
+/*
+ *
+ */
+void reportPoint( Point const *pt, Coords const *ref );
+
+/*
+ *
+ */
+double globalDistance( Coords const *c1, Coords const *c2);
 
 #endif
