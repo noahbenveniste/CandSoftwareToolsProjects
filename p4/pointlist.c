@@ -68,6 +68,8 @@ bool addPoint( Pointlist *ptlist, Point *pt )
         
         // If a point with the same name is already on the list
         if ( strcmp( curr->name, pt->name ) == 0 ) {
+            // Free the point if its not being added to avoid memory leaks!
+            freePoint( pt );
             return false;
         }
         
