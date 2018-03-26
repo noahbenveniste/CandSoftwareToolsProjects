@@ -143,7 +143,7 @@ double globalDistance( Coords const *c1, Coords const *c2)
 
 /**
  * Used for testing and debugging the Point struct
- */
+ *
 int main()
 {
     Coords currLocation = { 35.772325, -78.673581 };
@@ -153,4 +153,12 @@ int main()
     pt = parsePoint();
     reportPoint( pt, &currLocation );
     freePoint( pt );
+    pt = parsePoint();
+    if ( pt == NULL ) {
+       printf( "Success: point with an invalid name was not parsed\n" ); 
+    } else {
+       printf( "Failure\n" );
+    }
+    
 }
+*/

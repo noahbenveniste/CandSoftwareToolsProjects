@@ -31,6 +31,11 @@ void freePointlist( Pointlist *ptlist );
 /*
  *
  */
+bool addPoint( Pointlist *ptlist, Point *pt );
+
+/*
+ *
+ */
 bool removePoint( Pointlist *ptlist, char const *name );
 
 /*
