@@ -96,13 +96,18 @@ bool removePoint( Pointlist *ptlist, char const *name )
         // Point with the name is found
         if ( strcmp( curr->name, name ) == 0 ) {
             // If the Point is found, free the Point
+            freePoint( ptlist->list[ i ] );
             
-            // Perform any necessary shifting of the list (removing from the end of the list
-            // is a special case)
+            // Perform left shift
+            for ( int j = i; j < ( ptlist->count ) - 1; j++ ) {
+                ptlist->list[ j ] = ptlist->list[ j + 1 ];
+            }
     
             // Make sure to null the value at the old end of the list to prevent memory leaks
+            ptlist->list[ ( ptlist->count ) - 1 ] = NULL;
     
             // Decrement the list's size
+            ptlist->count--;
             
             // Return true
             return true;
@@ -156,11 +161,6 @@ static int compareTo( const void *p1, const void *p2 )
     }
     
 }
-/** DELETE THIS FUNCTION AFTER FINISHING TESTS */
-static bool listHelper( Point const *pt, void *data )
-{
-    return true;
-}
 
 void listPoints( Pointlist *ptlist, Coords const *ref, bool (*test) ( Point const *pt, void *data ), void *data )
 {
@@ -183,7 +183,7 @@ void listPoints( Pointlist *ptlist, Coords const *ref, bool (*test) ( Point cons
 
 /**
  * Used for debugging
- */
+ *
 int main()
 {
     // Used to simulate the current location struct being passed by main in attractions
@@ -292,3 +292,4 @@ int main()
     freePointlist( ptlist );
     return 0;
 }
+*/

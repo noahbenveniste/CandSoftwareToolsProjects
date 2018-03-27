@@ -15,18 +15,23 @@ Point *parsePoint()
     
     // Check that the latitude is within the valid range (defined in point.h)
     double latitude, longitude;
+    
     matches = scanf( "%lf", &latitude );
     if ( matches != 1 ) {
+        // printf( "bad latitude\n" );
         return NULL;
     } else if ( latitude < MIN_LAT || latitude > MAX_LAT ) {
+        // printf( "bad latitude\n" );
         return NULL;
     }
     
     // Check that the longitude is within the valid range (defined in point.h)
     matches = scanf( "%lf", &longitude );
     if ( matches != 1 ) {
+        // printf( "bad longitude\n" );
         return NULL;
-    } else if ( longitude < MIN_LAT || longitude > MAX_LAT ) {
+    } else if ( longitude < MIN_LONG || longitude > MAX_LONG ) {
+        // printf( "bad longitude\n" );
         return NULL;
     }
     
@@ -139,25 +144,20 @@ double globalDistance( Coords const *c1, Coords const *c2)
 
     // Return distance based on the radius of the earth.
     return EARTH_RADIUS * angle;
+    
 }
 
 /**
- * Used for testing and debugging the Point struct
- *
-int main()
-{
-    Coords currLocation = { 35.772325, -78.673581 };
-    Point *pt;
-    
-    // Test 1, valid input
-    pt = parsePoint();
-    reportPoint( pt, &currLocation );
-    freePoint( pt );
-    pt = parsePoint();
-    if ( pt == NULL ) {
-       printf( "Success: point with an invalid name was not parsed\n" ); 
+int main () {
+    const Coords currLocation = { 35.772325, -78.673581 };
+    Point *pt = parsePoint();
+    if ( pt ) {
+        reportPoint( pt, &currLocation );
+        freePoint( pt );
+        return 0;
     } else {
-       printf( "Failure\n" );
+        printf( "failure\n" );
+        return 1;
     }
     
 }
