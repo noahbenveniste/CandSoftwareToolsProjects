@@ -27,17 +27,17 @@ int main( int argc, char *argv[] )
 
     // Try to open the provided files
     FILE *fpcodes = fopen( argv[1], "r" );
-    FILE *fpin = fopen( argv[2], "rb" );
-    FILE *fpout = fopen( argv[3], "w" );
+    FILE *fpin = fopen( argv[NUM_ARGS - 1], "rb" );
+    FILE *fpout = fopen( argv[NUM_ARGS], "w" );
 
     if ( !fpcodes ) {
         fprintf( stderr, "%s: No such file or directory\n", argv[1] );
         exit( EXIT_FAILURE );
     } else if ( !fpin ) {
-        fprintf( stderr, "%s: No such file or directory\n", argv[2] );
+        fprintf( stderr, "%s: No such file or directory\n", argv[NUM_ARGS - 1] );
         exit( EXIT_FAILURE );
     } else if ( !fpout ) {
-        fprintf( stderr, "%s: No such file or directory\n", argv[3] );
+        fprintf( stderr, "%s: No such file or directory\n", argv[NUM_ARGS] );
         exit( EXIT_FAILURE );
     }
 

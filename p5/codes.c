@@ -7,6 +7,9 @@
  */
 #include "codes.h"
 
+/** Number of matches needed for file reading */
+#define NUM_MATCHES 2
+
 /* A statically allocated array to serve as the code dictionary */
 CodeDictEntry codeDict[CODE_DICT_SIZE];
 /* Keeps track of the number of entries added to the dictionary so far */
@@ -36,7 +39,7 @@ CodeDictEntry parseEntry( FILE * fp )
         return entry;
     }
 
-    if ( matches != 2 ) {
+    if ( matches != NUM_MATCHES ) {
         fprintf( stderr, "Invalid code file" );
         fclose( fp );
         exit( EXIT_FAILURE );
