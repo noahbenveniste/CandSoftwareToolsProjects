@@ -89,7 +89,8 @@ CodeDictEntry parseEntry( FILE * fp )
         }
     }
 
-    // If this point is reached, the inputs are valid, so construct a dictionary entry and add them to the array
+    // If this point is reached, the inputs are valid, so construct a 
+    // dictionary entry and add them to the array
     entry.ch = symbol;
     strcpy( entry.bits, code );
 

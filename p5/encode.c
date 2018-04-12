@@ -69,7 +69,8 @@ int main( int argc, char *argv[] )
 
     int nxtChar;
     do {
-        // Read in the input file. If it contains symbols not found in the dictionary, print "Invalid input file"
+        // Read in the input file. If it contains symbols not found in the dictionary, 
+        // print "Invalid input file"
         nxtChar = fgetc( fpin );
         /*
         if ( nxtChar == EOF ) {
@@ -79,7 +80,8 @@ int main( int argc, char *argv[] )
         }
         */
 
-        // Look up the character in the dictionary. If NULL is returned, print "Invalid input file", close all files, exit 1
+        // Look up the character in the dictionary. If NULL is returned, print 
+        // "Invalid input file", close all files, exit 1
         const char *bitString = symToCode( nxtChar );
         //printf( "%s\n", bitString );
 

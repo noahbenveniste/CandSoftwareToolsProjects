@@ -9,6 +9,9 @@
 #include <string.h>
 #include "bits.h"
 
+/** Max number of bits stored by a buffer */
+#define MAX_B_COUNT 8
+
 void writeBits( const char *code, BitBuffer *buffer, FILE *fp )
 {
     // Add bits to the BitBuffer one at a time, left shifting each time
@@ -20,7 +23,7 @@ void writeBits( const char *code, BitBuffer *buffer, FILE *fp )
     char ch = code[idx];
 
     while ( ch != '\0' ) {
-        while ( buffer->bcount < 8 ) {
+        while ( buffer->bcount < MAX_B_COUNT ) {
 
             // Grab the next character from the bit string, append it to the end of the BitBuffer.
             // Then, left shift the bit that was just added by 7 - buffer->bcount
@@ -36,7 +39,7 @@ void writeBits( const char *code, BitBuffer *buffer, FILE *fp )
             }
 
             // Create a mask by left shifting the inserted bit
-            int mask = nxtBit << ( 7 - buffer->bcount );
+            int mask = nxtBit << ( ( MAX_B_COUNT - 1 ) - buffer->bcount );
 
             // Or the mask onto the buffer's bits
             buffer->bits |= mask;
@@ -50,7 +53,7 @@ void writeBits( const char *code, BitBuffer *buffer, FILE *fp )
         }
 
         // Check if null terminator was reached i.e. the buffer didn't fill. If it didnt, return.
-        if ( buffer->bcount < 8 ) {
+        if ( buffer->bcount < MAX_B_COUNT ) {
             return;
         }
 
@@ -114,13 +117,13 @@ int readBit( BitBuffer *buffer, FILE *fp )
             return -1;
         } else {
             buffer->bits = temp;
-            buffer->bcount = 8;
+            buffer->bcount = MAX_B_COUNT;
         }
     }
 
     // Regardless of the above condition, grab the highest-order bit from the buffer, left-shift
     // the remaining bits, decrement bcount, and return the bit
-    int nxtBit = buffer->bits & ( 1 << 7 );
+    int nxtBit = buffer->bits & ( 1 << ( MAX_B_COUNT - 1 ) );
     int outBit;
     if ( nxtBit == 0x0 ) {
         outBit = 0;
