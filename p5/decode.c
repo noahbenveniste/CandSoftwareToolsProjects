@@ -1,8 +1,22 @@
+/**
+ * Handles functionality for decoding a given input file given a code
+ * conversion dictionary and then outputting the decoded file to a specified
+ * path.
+ *
+ * @file decode.c
+ * @author Noah Benveniste
+ */
 #include "bits.h"
 #include "codes.h"
 
+/** The number of arguments needed by the program */
 #define NUM_ARGS 3
+/** Max number of entries in the code dict */
+#define DICT_LEN 29
 
+/**
+ * Main method; handles primary flow of control of decode functionality
+ */
 int main( int argc, char *argv[] )
 {
     // Check that the correct number of command line args were provided
@@ -40,7 +54,7 @@ int main( int argc, char *argv[] )
     }
 
     // Check if the code dictionary is the correct length
-    if ( numEntries != 29 ) {
+    if ( numEntries != DICT_LEN ) {
         fprintf( stderr, "Invalid code file\n" );
         fclose( fpcodes );
         fclose( fpin );
@@ -55,7 +69,7 @@ int main( int argc, char *argv[] )
 
     // Fencepost
     int bit = readBit( &buffer, fpin );
-    char bitStringBuffer[13];
+    char bitStringBuffer[BIT_STR_LEN + 1];
     while ( bit != -1 ) {
         // Concatenate the bit onto a bit string. Try to find a symbol that matches in the dictionary.
         char currentBit[2];
@@ -73,7 +87,7 @@ int main( int argc, char *argv[] )
         } else if ( sym == EOF ) {
             break;
         } else {
-            if ( strlen( bitStringBuffer ) == 12 ) {
+            if ( strlen( bitStringBuffer ) == BIT_STR_LEN ) {
                 strcpy( bitStringBuffer, "" ); // Empties the bit string
             }
         }

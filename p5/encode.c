@@ -1,8 +1,22 @@
+/**
+ * Handles functionality for encoding a given input file given a code
+ * conversion dictionary and then outputting the encoded file to a specified
+ * path.
+ *
+ * @file encode.c
+ * @author Noah Benveniste
+ */
 #include "bits.h"
 #include "codes.h"
 
+/** The number of command line arguments needed by the program */
 #define NUM_ARGS 3
+/** Max number of entries in the code dict */
+#define DICT_LEN 29
 
+/**
+ * Main method; handles primary flow of control of encode functionality
+ */
 int main( int argc, char *argv[] )
 {
     // Check that the correct number of command line args were provided
@@ -40,7 +54,7 @@ int main( int argc, char *argv[] )
     }
 
     // Check if the code dictionary is the correct length
-    if ( numEntries != 29 ) {
+    if ( numEntries != DICT_LEN ) {
         fprintf( stderr, "Invalid code file\n" );
         fclose( fpcodes );
         fclose( fpin );

@@ -1,3 +1,10 @@
+/**
+ * Functions invloved generating a dictionary of symbols and binary codes
+ * and functionality to search for a given symbol or code given a symbol or code.
+ *
+ * @file codes.c
+ * @author Noah Benveniste
+ */
 #include "codes.h"
 
 /* A statically allocated array to serve as the code dictionary */
@@ -15,8 +22,8 @@ CodeDictEntry parseEntry( FILE * fp )
 
     /* Print "Invalid code file" to stderr and exit with a status of 1 */
     // Initialize symbol and code
-    char sym[50];
-    char code[50];
+    char sym[CODE_DICT_SIZE];
+    char code[CODE_DICT_SIZE];
     char symbol;
     CodeDictEntry entry;
 
@@ -68,7 +75,7 @@ CodeDictEntry parseEntry( FILE * fp )
     }
 
     // Check that the code string is a series of 1's and 0's and is at most 12 characters
-    if ( strlen( code ) > 12 ) {
+    if ( strlen( code ) > BIT_STR_LEN ) {
         fprintf( stderr, "Invalid code file" );
         fclose( fp );
         exit( EXIT_FAILURE );

@@ -1,3 +1,10 @@
+/**
+ * File containing methods that handle the buffering of bits when doing
+ * binary i/o with whole bytes of data.
+ *
+ * @file bits.c
+ * @author Noah Benveniste
+ */
 #include <stdlib.h>
 #include <string.h>
 #include "bits.h"
