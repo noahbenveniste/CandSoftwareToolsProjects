@@ -12,46 +12,47 @@ void writeBits( const char *code, BitBuffer *buffer, FILE *fp )
     int idx = 0;
     char ch = code[idx];
     
-    while ( ch != '\0' && buffer->bcount < 8 ) {
+    while ( ch != '\0' ) {
+        while ( buffer->bcount < 8 ) {
+            
+            // Grab the next character from the bit string, append it to the end of the BitBuffer.
+            // Then, left shift the bit that was just added by 7 - buffer->bcount
+            int nxtBit = ch - '0';
+            
+            // Convert to octal
+            if ( nxtBit == 0 ) {
+                nxtBit = 0x0;
+            } else if ( nxtBit == 1 ) {
+                nxtBit = 0x1;
+            } else {
+                return;
+            }
+            
+            // Create a mask by left shifting the inserted bit
+            int mask = nxtBit << ( 7 - buffer->bcount );
+            
+            // Or the mask onto the buffer's bits
+            buffer->bits |= mask;
+            
+            // Increment bcount++
+            buffer->bcount++;
+            
+            // Get the next bit from the bit string
+            idx++;
+            ch = code[idx];
+        }
         
-        // Grab the next character from the bit string, append it to the end of the BitBuffer.
-        // Then, left shift the bit that was just added by 7 - buffer->bcount
-        int nxtBit = ch - '0';
-        
-        // Convert to octal
-        if ( nxtBit == 0 ) {
-            nxtBit = 0x0;
-        } else if ( nxtBit == 1 ) {
-            nxtBit = 0x1;
-        } else {
-            printf( "Invalid bit string" );
+        // Check if null terminator was reached i.e. the buffer didn't fill. If it didnt, return.
+        if ( buffer->bcount < 8 ) {
             return;
         }
         
-        // Create a mask by left shifting the inserted bit
-        int mask = nxtBit << ( 7 - buffer->bcount );
-        
-        // Or the mask onto the buffer's bits
-        buffer->bits |= mask;
-        
-        // Increment bcount++
-        buffer->bcount++;
-        
-        // Get the next bit from the bit string
-        idx++;
-        ch = code[idx];
+        // Once buffer->bcount hits 8, write the byte and reset the buffer's bit count
+        fprintf( fp, "%c", buffer->bits );
+        buffer->bcount = 0;
+        buffer->bits = 0x0;
     }
-    
-    // Check if null terminator was reached i.e. the buffer didn't fill. If it didnt, return.
-    if ( buffer->bcount != 8 ) {
-        return;
-    }
-    
-    // Once buffer->bcount hits 8, write the byte and reset the buffer's bit count
-    fprintf( fp, "%c", buffer->bits );
-    buffer->bcount = 0;
-    buffer->bits = 0x0;
-    
+    /*
     // Check if code has any more characters to write. Write the rest of these to the buffer
     // in the same way that was done above until the null terminator is reached.
     while ( ch != '\0' ) {
@@ -82,6 +83,7 @@ void writeBits( const char *code, BitBuffer *buffer, FILE *fp )
         idx++;
         ch = code[idx];
     }
+    */
     return;
 }
 
@@ -127,7 +129,7 @@ int readBit( BitBuffer *buffer, FILE *fp )
     return outBit;
 }
 
-/* Used for testing bit reading and writing functionality */
+/* Used for testing bit reading and writing functionality
 int main()
 {
     // Initialize the bit buffer
@@ -191,3 +193,4 @@ int main()
     fclose( fpin );
     return 0;
 }
+*/

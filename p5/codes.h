@@ -1,8 +1,10 @@
 #ifndef _CODES_H_
-#def _CODES_H_
+#define _CODES_H_
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
 
 #define CODE_DICT_SIZE 50
 
@@ -13,17 +15,19 @@ typedef struct {
     char ch;
     
     /** The bit string for the encoded character */
-    char *bits;
+    char bits[13];
     
 } CodeDictEntry;
 
 /** */
 extern CodeDictEntry codeDict[CODE_DICT_SIZE];
+/** */
+extern int numEntries;
 
 /**
  *
  */
-void initCodeDict( char * fileName );
+CodeDictEntry parseEntry( FILE * fp );
 
 /**
  *
