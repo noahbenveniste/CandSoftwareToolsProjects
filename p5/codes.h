@@ -29,7 +29,7 @@ typedef struct {
 
 } CodeDictEntry;
 
-/** The code dictionary; made to be accessible to the 
+/** The code dictionary; made to be accessible to the
     whole program so it can be statically allocated */
 extern CodeDictEntry codeDict[CODE_DICT_SIZE];
 /** The number of entries currently in the code dictionary*/

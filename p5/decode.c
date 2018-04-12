@@ -71,7 +71,7 @@ int main( int argc, char *argv[] )
     int bit = readBit( &buffer, fpin );
     char bitStringBuffer[BIT_STR_LEN + 1];
     while ( bit != -1 ) {
-        // Concatenate the bit onto a bit string. Try to find a 
+        // Concatenate the bit onto a bit string. Try to find a
         // symbol that matches in the dictionary.
         char currentBit[2];
         sprintf( currentBit, "%d", bit );
@@ -79,7 +79,7 @@ int main( int argc, char *argv[] )
         strcat( bitStringBuffer, currentBit );
         //printf( "Bit string: %s\n\n", bitStringBuffer );
 
-        // If codeToSym returns anything other than EOF, write the 
+        // If codeToSym returns anything other than EOF, write the
         // symbol to the file. Then, reset the bit string buffer
         int sym = codeToSym( bitStringBuffer );
 

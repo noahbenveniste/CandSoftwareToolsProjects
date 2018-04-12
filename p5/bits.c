@@ -97,7 +97,8 @@ void writeBits( const char *code, BitBuffer *buffer, FILE *fp )
     return;
 }
 
-/* Used when encoding the input file when EOF is reached to flush the last byte from the bit buffer */
+/* Used when encoding the input file when EOF is reached
+   to flush the last byte from the bit buffer */
 void flushBits( BitBuffer *buffer, FILE *fp )
 {
     if ( buffer->bcount != 0 ) {
