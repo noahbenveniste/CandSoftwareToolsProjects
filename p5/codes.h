@@ -10,13 +10,13 @@
 
 /** An entry in the code dictionary; stores the character and associated binary code */
 typedef struct {
-    
+
     /** The actual character to be encoded */
     char ch;
-    
+
     /** The bit string for the encoded character */
     char bits[13];
-    
+
 } CodeDictEntry;
 
 /** */
